@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Destination</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Edit Destination</h1>
+
+    <form id="edit-destination-form">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location"><br><br>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country"><br><br>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description"><br><br>
+
+        <label for="tourist_targets">Tourist Targets:</label>
+        <input type="text" id="tourist_targets" name="tourist_targets"><br><br>
+
+        <label for="cost">Cost per Day:</label>
+        <input type="number" id="cost" name="cost" step="0.01"><br><br>
+
+        <button type="submit" id="submit-btn">Save Changes</button>
+    </form>
+
+    <script>
+        // Get the destination ID from the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const destinationId = urlParams.get('id');
+
+        // Populate the form fields with the destination data
+        $.getJSON(`php/get.php?id=${destinationId}`, function(response) {
+            $('#location').val(response.location);
+            $('#country').val(response.country);
+            $('#description').val(response.description);
+            $('#tourist_targets').val(response.tourist_targets);
+            $('#cost').val(response.cost);
+        });
+
+        $('#edit-destination-form').submit(function(event) {
+            event.preventDefault();
+
+            // Send the updated data to the server to update the destination
+            updateDestination(destinationId);
+        });
+
+        function updateDestination(destinationId) {
+            const location = $('#location').val();
+            const country = $('#country').val();
+            const description = $('#description').val();
+            const tourist_targets = $('#tourist_targets').val();
+            const cost = $('#cost').val();
+
+            const errors = [];
+
+            if (!location) {
+                errors.push('Please enter a location.');
+            }
+
+            if (!country) {
+                errors.push('Please enter a country.');
+            }
+
+            if (!description) {
+                errors.push('Please enter a description.');
+            }
+
+            if (!tourist_targets) {
+                errors.push('Please enter tourist targets.');
+            }
+
+            if (!cost) {
+                errors.push('Please enter a cost.');
+            } else if (isNaN(cost)) {
+                errors.push('Please enter a valid cost.');
+            } else if (parseFloat(cost) < 0) {
+                errors.push('Please enter a positive cost.');
+            }
+
+            if (errors.length > 0) {
+                alert(errors.join('\n'));
+                return;
+            }
+
+            $.ajax({
+                url: `http://localhost/webprogramming/vacationdestinations/php/edit.php?id=${destinationId}`,
+                type: "PUT",
+                data: JSON.stringify({
+                    location: location,
+                    country: country,
+                    description: description,
+                    tourist_targets: tourist_targets,
+                    cost: cost
+                }),
+                dataType: "json"
+            })
+                .then(function (response) {
+                    alert(response.message);
+                    window.history.back();
+                }, function (errorData) {
+                    alert(errorData.responseText);
+                });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<h1>Vacation Destinations</h1>
+<button (click)="onAddClick()">Add</button>
+<button (click)="onBrowseClick()">Destinations by Country</button>
+<table id="destination-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Location</th>
+            <th>Country</th>
+            <th>Description</th>
+            <th>Tourist Targets</th>
+            <th>Cost per Day</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let destination of destinations; let i = index">
+            <td>{{ i + 1 + currentPage * 4 }}</td>
+            <td>{{ destination.location }}</td>
+            <td>{{ destination.country }}</td>
+            <td>{{ destination.description }}</td>
+            <td>{{ destination.touristTargets }}</td>
+            <td>{{ destination.cost }}</td>
+            <td>
+                <button [routerLink]="['/edit']" [queryParams]="{id: destination.id}">Edit</button>
+                <button [routerLink]="['/delete']" [queryParams]="{id: destination.id}">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div id="pagination">
+    <button [disabled]="currentPage == 0" (click)="onPrevPage()">Previous</button>
+    <div id="noPage">Page {{ currentPage + 1 }} of {{ totalPages }}</div>
+    <button [disabled]="currentPage >= totalPages - 1" (click)="onNextPage()">Next</button>
+</div>

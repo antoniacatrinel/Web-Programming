@@ -1,0 +1,15 @@
+<header>
+<h2>Login</h2>
+</header>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+<form (ngSubmit)="login()" #loginForm="ngForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" placeholder="username" [(ngModel)]="username"><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="password" [(ngModel)]="password"><br><br>
+
+    <button type="submit" id="submit-btn" [disabled]="loginForm.invalid">Login</button>
+</form>
+  

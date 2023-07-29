@@ -1,0 +1,32 @@
+#solve {
+    font-size: 32px;
+    font-family: "Fira Mono", monospace;
+    text-align: center;
+    font-weight: bold;
+}
+
+#puzzle {
+    position: absolute;
+    top: 100px;
+    left: 450px;
+    width: 798px;
+    height: 573px;
+}
+
+#puzzle img {
+    margin: 0;
+    padding: 0;
+}
+
+.puzzlepiece {
+    float: left;
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+#status {
+    position: relative;
+    font-size: 14px;
+    font-family: "Fira Mono", monospace;
+    font-weight: bold;
+}

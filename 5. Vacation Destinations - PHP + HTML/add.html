@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Destination</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Add Destination</h1>
+
+    <form action="javascript:postData();">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location"><br><br>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country"><br><br>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description"><br><br>
+
+        <label for="tourist_targets">Tourist Targets:</label>
+        <input type="text" id="tourist_targets" name="tourist_targets"><br><br>
+
+        <label for="cost">Cost per Day:</label>
+        <input type="number" id="cost" name="cost" step="0.01"><br><br>
+
+        <button type="submit" id="submit-btn">Add destination</button>
+    </form>
+
+    <script>
+        function postData() {
+            const location = $('#location').val();
+            const country = $('#country').val();
+            const description = $('#description').val();
+            const tourist_targets = $('#tourist_targets').val();
+            const cost = $('#cost').val();
+
+            const errors = [];
+
+            if (!location) {
+                errors.push('Please enter a location.');
+            }
+
+            if (!country) {
+                errors.push('Please enter a country.');
+            }
+
+            if (!description) {
+                errors.push('Please enter a description.');
+            }
+
+            if (!tourist_targets) {
+                errors.push('Please enter tourist targets.');
+            }
+
+            if (!cost) {
+                errors.push('Please enter a cost.');
+            } else if (isNaN(cost)) {
+                errors.push('Please enter a valid cost.');
+            } else if (parseFloat(cost) < 0) {
+                errors.push('Please enter a positive cost.');
+            }
+
+            if (errors.length > 0) {
+                alert(errors.join('\n'));
+                return;
+            }
+
+            $.ajax({
+                url: "http://localhost/webprogramming/vacationdestinations/php/add.php",
+                type: "POST",
+                data: JSON.stringify({
+                    location: location,
+                    country: country,
+                    description: description,
+                    tourist_targets: tourist_targets,
+                    cost: cost
+                }),
+                dataType: "json"
+            })
+                .then(function (response) {
+                    alert(response.message);
+                    window.history.back();
+                }, function (errorData) {
+                    alert(JSON.parse(errorData.responseText).message);
+                });
+        }
+    </script>
+</body>
+
+</html>

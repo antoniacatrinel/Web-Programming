@@ -1,0 +1,79 @@
+/* getAll.html */
+body {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+button {
+    margin: 5px;
+    border-radius: 8px;
+    background-color: #AFDBF5;
+    border: 2px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+button:hover {
+    border-color: #2D68C4;
+}
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+header button {
+    font-size: 0.7em;
+    padding: 10px;
+    margin-right: 16px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 10px;
+}
+  
+th, td {
+    border: 1px solid #c4daee;
+    padding: 8px;
+    text-align: left;
+}
+  
+th {
+    background-color: #F0F8FF;
+}
+  
+tr:nth-child(even) {
+    background-color: #F0F8FF;
+}
+  
+tr:hover {
+    background-color: #c1dcf4;
+}
+
+/* add.html */
+form {
+    display: grid;
+    margin: 10px;
+}
+
+label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+input[type=text], input[type=number], input[type=password] {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #F0F8FF;
+    box-sizing: border-box;
+    max-width: 200px; 
+    background-color: #F0F8FF;
+}
+
+button#submit-btn {
+    width: 200px;
+    margin-top: 10px;
+}

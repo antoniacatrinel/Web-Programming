@@ -1,0 +1,158 @@
+* {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+header {
+    margin: 10% auto auto;
+    text-align: center;
+}
+
+#game {
+    display: none;
+    justify-content: space-around;
+}
+
+#welcome {
+    font-weight: bold;
+}
+
+#noOfShipsPlayer {
+    text-align: center;
+    margin: auto auto 30px;
+}
+
+#noOfShipsHitOpponent {
+    text-align: center;
+    margin: auto auto 20px;
+}
+
+#noOfShipsOpponent {
+    text-align: center;
+    margin: auto auto 30px;
+}
+
+#playerGrid {
+    margin: 5px;
+}
+
+#opponentGrid {
+    margin: 5px;
+}
+
+.filler {
+    width: 20%;
+}
+
+.separator {
+    width: 1px;
+    height: 1000px;
+    background-color: black;
+    margin: 0 auto auto;
+}
+
+.board {
+    margin-top: 12.5%;
+}
+
+@media (max-width: 897px) {
+    #game {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .filler {
+        width: 0;
+    }
+
+    .board {
+        margin-top: 20%;
+        flex-basis: 40%;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+table {
+    border-color: black;
+}
+
+.board h2 {
+    text-align: center;
+    margin: auto auto 10px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.button-container {
+    text-align: center;
+}
+
+button, #greeting button {
+    font-size: 1em;
+    padding: 8px;
+    border-radius: 8px;
+}
+button:hover {
+    border-color: deepskyblue;
+}
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+.error {
+    color: red;
+}
+
+table {
+    margin: auto;
+}
+
+td {
+    width: 25px;
+    height: 25px;
+    border: 1px solid black;
+}
+
+td.ship {
+    background-color: blue;
+}
+
+td.hit {
+    background-color: green;
+}
+
+td.miss {
+    background-color: red;
+}
+
+#login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 5%;
+}
+
+#login form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login form h2 {
+    text-align: center;
+}
+
+#login input[type="text"],
+input[type="password"] {
+    margin: 10px;
+}
+
+#login input[type="submit"] {
+    margin-top: 10px;
+    font-size: 1em;
+    padding: 8px;
+}

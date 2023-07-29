@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Destination</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Delete Destination</h1>
+
+    <div>
+        <p>Are you sure you want to delete this destination?</p>
+        <button id="confirm-btn">Yes</button>
+        <button id="cancel-btn">No</button>
+    </div>
+
+    <script>
+        function deleteDestination(destinationId, successCallback){
+            $.ajax({
+                url: "http://localhost/webprogramming/vacationdestinations/php/delete.php?id=" + destinationId,
+                type: "DELETE"
+            })
+                .then(function(response) {
+                    alert(response.message);
+                    console.log(response);
+                    if(successCallback){
+                        successCallback();
+                    }
+                }, function(errorData){
+                    console.log(errorData);
+                });
+        }
+
+        document.getElementById("confirm-btn").addEventListener("click", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const destinationId = urlParams.get('id');
+            deleteDestination(destinationId, function() {
+                window.history.back();
+            });
+        });
+
+        document.getElementById("cancel-btn").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
+</body>
+
+</html>

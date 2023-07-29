@@ -1,0 +1,22 @@
+<header>
+<h1> <button type="button" routerLink="/showAll">&lt;</button>Add Destination</h1>
+</header>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<form (ngSubmit)="addDestination()" #addForm="ngForm">
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" [(ngModel)]="location"><br><br>
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" [(ngModel)]="country"><br><br>
+
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" [(ngModel)]="description"><br><br>
+
+    <label for="tourist_targets">Tourist Targets:</label>
+    <input type="text" id="tourist_targets" name="tourist_targets" [(ngModel)]="tourist_targets"><br><br>
+
+    <label for="cost">Cost per Day:</label>
+    <input type="number" id="cost" name="cost" step="0.01" [(ngModel)]="cost"><br><br>
+
+    <button type="submit" id="submit-btn" [disabled]="addForm.invalid">Add destination</button>
+</form>

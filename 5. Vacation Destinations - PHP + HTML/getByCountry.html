@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Destinations by Country</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var currentPage = 0;
+            $.getJSON("php/getCountries.php", function(countries) {
+                var countrySelect = $('<select>');
+                countrySelect.append($('<option>').text('Select Country'));
+                $.each(countries, function(index, country) {
+                    countrySelect.append($('<option>').text(country.country));
+                });
+                $('#country-select').html(countrySelect);
+                $('#country-select').change(function() {
+                var country = $('#country-select option:selected').text();
+
+                var currentPage = 0;
+
+                function refreshTable() {
+                    $.getJSON("php/getByCountry.php", { country: country, limit: 4, offset: currentPage * 4 }, function(data) {
+                        var table = $('<table>');
+                        var headerRow = $('<tr>');
+                        headerRow.append($('<th>').text('#'));
+                        headerRow.append($('<th>').text('Location'));
+                        headerRow.append($('<th>').text('Country'));
+                        headerRow.append($('<th>').text('Description'));
+                        headerRow.append($('<th>').text('Tourist Targets'));
+                        headerRow.append($('<th>').text('Cost per Day'));
+                        headerRow.append($('<th>').text('Actions'));
+                        table.append(headerRow);
+
+                        $.each(data, function(index, destination) {
+                            var row = $('<tr>');
+                            row.append($('<td>').text(index + 1 + currentPage * 4));
+                            row.append($('<td>').text(destination.location));
+                            row.append($('<td>').text(destination.country));
+                            row.append($('<td>').text(destination.description));
+                            row.append($('<td>').text(destination.tourist_targets));
+                            row.append($('<td>').text(destination.cost));
+
+                            var actions = $('<td>');
+                            var editButton = $('<button>').text('Edit');
+                            editButton.click(function() {
+                                window.location.href = 'edit.html?id=' + destination.id;
+                            });
+                            actions.append(editButton);
+
+                            var deleteButton = $("<button>").text("Delete");
+                            deleteButton.click(function (){
+                                window.location.href = 'delete.html?id=' + destination.id;
+                            });
+                            actions.append(deleteButton);
+
+                            row.append(actions);
+
+                            table.append(row);
+                        });
+
+                        $('#destination-table').empty().append(table);
+
+                    $('#prev-btn').prop('disabled', currentPage == 0);
+                    $('#next-btn').prop('disabled', data.length < 4);
+                });
+            }
+
+            $('#prev-btn').click(function() {
+                currentPage--;
+                refreshTable();
+            });
+
+            $('#next-btn').click(function() {
+                currentPage++;
+                refreshTable();
+            });
+
+            refreshTable();
+        });
+    });
+});
+    </script>
+</head>
+<body class="index">
+    <h1>Vacation Destinations By Country</h1>
+    <div id="country-select"></div>
+    <div id="destination-table"></div>
+    <div id="pagination"></div>
+    <button id="prev-btn">Prev</button>
+    <button id="next-btn">Next</button>
+</body>
+
+</html>
